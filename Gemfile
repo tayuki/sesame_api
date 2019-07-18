@@ -9,3 +9,8 @@ gem "json"
 gem "env"
 gem "sinatra"
 gem "dotenv"
+
+group :test do
+  gem "minitest"
+  gem 'minitest-reporters'
+end

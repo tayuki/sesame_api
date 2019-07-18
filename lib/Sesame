@@ -1,0 +1,10 @@
+class Sesame
+
+  attr_reader :api_url, :token
+
+  def initialize(token)
+    @token = token
+    @api_url = "https://api.candyhouse.co/public"
+  end
+
+end

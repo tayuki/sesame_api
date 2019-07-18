@@ -2,7 +2,7 @@
 
 require 'sinatra'
 require 'dotenv'
-require_relative 'lib/sesame.rb'
+require_relative 'lib/SesameDevice.rb'
 
 Dotenv.load
 
@@ -11,9 +11,9 @@ set :port, ENV["PORT"]
 
 sesame_token = ENV["SESAME_TOKEN"]
 
-sesame = Sesame.new(sesame_token)
+sesame = SesameDevice.new(sesame_token)
 
-device_ids = sesame.get_device_ids
+device_ids = sesame.ids
 
 get '/lockall' do
   sesame.alllock
