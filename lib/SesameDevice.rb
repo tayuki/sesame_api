@@ -3,34 +3,23 @@ require 'json'
 
 class SesameDevice
 
-  def initialize(token)
-    @log_array = []
-
-  end
-
-  def get_log
-    puts @log_array
-  end
-
-  def url
-    "#{@api_url}/sesames"
-  end
-
-  def req(url,token)
+  def initialize(token,device_id)
     client = HTTPClient.new
-    res = client.get(url,header: [["Authorization", token]])
+    @data = client.get(url,header: [["Authorization", token]])
   end
 
-  def ids
-    result = []
-    p res.status
+  def lock
 
-    res_json = JSON.parse(res.body)
+  end
 
-    res_json.each { |data| result.push(data["device_id"]) }
+  def json_to_device_ids(json)
+    json_obj = JSON.parse(json)
+    json_obj.each { |data| result.push(data["device_id"]) }
     result
   end
 
-
+  def ids
+    self.json_to_device_ids(@data.body)
+  end
 
 end

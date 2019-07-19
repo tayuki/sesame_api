@@ -1,4 +1,4 @@
-class SemameControl
+class SesameControl
   def initialize(sesame)
     @sesame = sesame
 
