@@ -15,6 +15,7 @@ sesame = Sesame.new(sesame_token)
 
 device_ids = sesame.get_device_ids
 
+# 全deviceidを再取得した上でロック
 get '/lockall' do
   sesame.alllock
   sesame.get_log

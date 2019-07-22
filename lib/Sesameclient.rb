@@ -1,14 +1,15 @@
 class Sesameclient
-  def initialize()
+  def initialize(token)
     @api_url = "https://api.candyhouse.co/public"
+    @token = token
   end
 
   def list_url
     "#{@api_url}/sesames"
   end
 
-  def lock_url(deviceid)
-    "#{@api_url}/sesame/#{deviceid}"
+  def lock_url(device_id)
+    "#{@api_url}/sesame/#{device_id}"
   end
 
   def lock_json
@@ -16,9 +17,14 @@ class Sesameclient
     message.to_json
   end
 
-  def lock
+  def lock(device_id)
     client = HTTPClient.new
-    res = client.post(lock_url, lock_json, 'Content-Type' => 'application/json', 'Authorization' => @token)
+    client.post(lock_url(device_id), lock_json, 'Content-Type' => 'application/json', 'Authorization' => @token)
+  end
+
+  def devicelist
+    client = HTTPClient.new
+    client.get(url,header: [["Authorization", @token]])
   end
 
 end
