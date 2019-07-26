@@ -1,4 +1,4 @@
-class Sesameclient
+class SesameClient
   def initialize(token)
     @api_url = "https://api.candyhouse.co/public"
     @token = token
@@ -22,9 +22,22 @@ class Sesameclient
     client.post(lock_url(device_id), lock_json, 'Content-Type' => 'application/json', 'Authorization' => @token)
   end
 
-  def devicelist
+  def call_devices
     client = HTTPClient.new
     client.get(url,header: [["Authorization", @token]])
+  end
+
+  # @return [Array]
+  def device_id_list
+    device_ids = response_to_device_ids(JSON.parse(call_devices.body))
+    device_list = device_ids.each { |device_id| device_id }
+    device_list
+  end
+
+  def response_to_device_ids(response_json)
+    device_ids = []
+    response_json.each { |data| device_ids.push(data["device_id"]) }
+    device_ids
   end
 
 end
