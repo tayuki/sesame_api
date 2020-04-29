@@ -43,6 +43,21 @@ class Sesame
     end
   end
 
+  def lock?(deviceid)
+    url = "#{@api_url}/sesame/#{deviceid}"
+
+    client = HTTPClient.new
+    res = client.get(url,header: [["Authorization", @token]])
+    @log_array = [res.body, res.status]
+    if res.status = 200
+      result = JSON.parse(res.body)
+      puts result["locked"]
+    else
+      false
+    end
+  end
+
+
   def locks(deviceids)
     deviceids.each do |device_id|
       self.lock(device_id)
